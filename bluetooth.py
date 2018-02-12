@@ -11,5 +11,4 @@ def send(addr, data):
 
 		for i in range(0, len(data)):
 				print(ch.write(data[i], withResponse=True))
-				sleep(0.1)
 
