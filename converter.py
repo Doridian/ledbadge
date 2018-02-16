@@ -123,7 +123,7 @@ class Mode(Enum):
 
 class ImageMessage:
 	# Expects PIL.Image as img
-	def __init__(self, img, speed = 0, mode = Mode.LEFT, flash = False, marquee = False):
+	def __init__(self, img, speed = 0, mode = Mode.LEFT, flash = False, marquee = False, padImage = False):
 		img = img.convert('L')
 		self.speed = speed
 		self.mode = mode
@@ -133,8 +133,18 @@ class ImageMessage:
 		self.data = ""
 		self.len = 0
 
+		if isinstance(img, list):
+			for i in range(0, len(img)):
+				self.addimg(img[i], padImage)
+		else:
+			self.addimg(img, padImage)
+
+	def addimg(img, padImage):
 		width = img.width
-		for i in range(0, ceil(width / 8.0)):
+		maxRange = 6 # ceil(44.0 / 8.0)
+		if not padImage:
+			maxRange = ceil(width / 8.0)
+		for i in range(0, maxRange):
 			for row in range(0, 11):
 				dByte = 0
 				for col in range(0, 8):
