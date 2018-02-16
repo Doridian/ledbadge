@@ -118,11 +118,11 @@ class Mode(Enum):
 	ANIMATION = 0x07
 	LASER = 0x08
 
-# Width of display = 40. 8 pixels per character width
+# Width of display = 44. 8 pixels per character width (so 5.5 characters wide)
 # Height of display = 11.
 
 class ImageMessage:
-	# Expects PIL.Image as img
+	# Expects PIL.Image or array thereof as img
 	def __init__(self, img, speed = 0, mode = Mode.LEFT, flash = False, marquee = False, padImage = False):
 		img = img.convert('L')
 		self.speed = speed
